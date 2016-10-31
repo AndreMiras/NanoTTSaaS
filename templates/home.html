@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block wraptitle %}
+<div class="text-center">
+  <h1>Home</h1>
+</div> <!-- text-centered -->
+{% endblock wraptitle %}
+
+{% block content %}
+
+<div class="row">
+  <div class="md-12">
+  {% if audio_file %}
+  <audio autoplay="autoplay" controls="controls">
+   <source src="{{ url_for('static', filename=audio_file) }}" type='audio/wav'>
+   <p>Your user agent does not support the HTML5 Audio element.</p>
+  </audio>
+  {% endif %}
+  </div>
+
+  <div class="md-12">
+  Form
+  {% from "_formhelpers.html" import render_field %}
+  <form method="POST" action="/">
+    <dl>
+      {{ render_field(form.text) }}
+    </dl>
+    <p><input type="submit" value="Say it">
+  </form>
+  </div>
+
+{% endblock content %}
