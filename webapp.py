@@ -56,11 +56,14 @@ def home():
     return render_template('home.html', **data)
 
 
-if __name__ == '__main__':
+def setup():
     secret_key = os.environ.get('SECRET_KEY')
     # generates a one time secret key
     if secret_key is None:
         choice = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)"
         secret_key = "".join([random.choice(choice) for i in range(50)])
     app.secret_key = secret_key
+setup()
+
+if __name__ == '__main__':
     app.run(port=8000, debug=True)
