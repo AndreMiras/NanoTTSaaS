@@ -9,7 +9,7 @@
 <div class="row">
   <div class="md-12">
   {% if audio_file %}
-  <audio autoplay="autoplay" controls="controls">
+  <audio autoplay="autoplay">
    <source src="{{ url_for('static', filename=audio_file) }}" type='audio/wav'>
    <p>Your user agent does not support the HTML5 Audio element.</p>
   </audio>
