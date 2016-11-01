@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 
 {% block wraptitle %}
-<div class="text-center">
-  <h1>Home</h1>
-</div> <!-- text-centered -->
+<hr>
 {% endblock wraptitle %}
 
 {% block content %}
@@ -24,7 +22,9 @@
     <dl>
       {{ render_field(form.text) }}
     </dl>
-    <button type="submit" class="btn btn-default">Say it</button>
+    <div class="text-center">
+    <button type="submit" class="btn btn-default"><i class="fa fa-play fa-4x"></i></button>
+    </div>
   </form>
   </div>
 
