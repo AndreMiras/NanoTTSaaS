@@ -2,7 +2,7 @@ import os
 import random
 from datetime import datetime, timedelta
 from tempfile import NamedTemporaryFile
-from flask import Flask, request, render_template, flash
+from flask import Flask, request, render_template
 from forms import NanoTtsForm
 from libnanotts import NanoTts
 
@@ -37,10 +37,8 @@ def home():
     form = NanoTtsForm(request.form)
     if request.method == 'POST' and form.validate():
         text = form.text.data
-        flash('Playing wav.')
         nanotts = NanoTts()
         nanotts.noplay = True
-        # TODO: use tempfile module
         f = NamedTemporaryFile(
             suffix=AUDIO_FORMAT, dir=audio_directory(), delete=False)
         f.close()
