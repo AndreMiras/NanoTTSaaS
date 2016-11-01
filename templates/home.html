@@ -19,13 +19,12 @@
   </div>
 
   <div class="md-12">
-  Form
-  {% from "_formhelpers.html" import render_field %}
+  {% from "_formhelpers_bootstrap.html" import render_field %}
   <form method="POST" action="/">
     <dl>
       {{ render_field(form.text) }}
     </dl>
-    <p><input type="submit" value="Say it">
+    <button type="submit" class="btn btn-default">Say it</button>
   </form>
   </div>
 
