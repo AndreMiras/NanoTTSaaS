@@ -26,10 +26,10 @@
       {{ render_field(form.voice) }}
     </dl>
     <dl>
-      {{ render_field(form.speed) }}
+      {{ render_field(form.speed, placeholder="Between 0.2 and 5.0") }}
     </dl>
     <dl>
-      {{ render_field(form.pitch) }}
+      {{ render_field(form.pitch, placeholder="Between 0.5 and 2.0") }}
     </dl>
     <div class="text-center">
     <button type="submit" class="btn btn-default"><i class="fa fa-play fa-4x"></i></button>
