@@ -2,7 +2,7 @@ import os
 import random
 from datetime import datetime, timedelta
 from tempfile import NamedTemporaryFile
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_from_directory
 from forms import NanoTtsForm
 from libnanotts import NanoTts
 
@@ -28,6 +28,13 @@ def delete_old_audio_files(path, hours=24):
             file_modified = datetime.fromtimestamp(os.path.getmtime(filepath))
             if datetime.now() - file_modified > timedelta(hours=hours):
                 os.remove(filepath)
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(
+            os.path.join(app.root_path, 'static', 'img'),
+            'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
 @app.route('/', methods=['GET', 'POST'])
