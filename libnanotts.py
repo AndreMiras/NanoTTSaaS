@@ -2,11 +2,19 @@ from subprocess import call
 
 
 class NanoTts(object):
+    VOICES = [ "en-GB", "en-US", "de-DE", "es-ES", "fr-FR", "it-IT" ]
 
     def __init__(self):
         self.voice = "en-GB"
         self.noplay = False
         self.output = None
+
+    @staticmethod
+    def get_voices():
+        """
+        Returns available voices.
+        """
+        return NanoTts.VOICES
 
     def run(self, words):
         command_list = ["nanotts", ]
