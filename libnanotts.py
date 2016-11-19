@@ -8,6 +8,7 @@ class NanoTts(object):
         self.voice = "en-GB"
         self.noplay = False
         self.output = None
+        self.speed = None
 
     @staticmethod
     def get_voices():
@@ -24,5 +25,7 @@ class NanoTts(object):
             command_list.append("--no-play")
         if self.output:
             command_list.extend(["-o", self.output])
+        if self.speed:
+            command_list.extend(["--speed", str(self.speed)])
         command_list.extend(["-w", words])
         call(command_list)
