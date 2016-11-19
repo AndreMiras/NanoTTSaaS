@@ -11,3 +11,5 @@ class NanoTtsForm(Form):
         choices=[(voice, voice) for voice in NanoTts.get_voices()])
     speed = FloatField(validators=[
                 validators.Optional(), validators.NumberRange(0.2, 5.0)])
+    pitch = FloatField(validators=[
+                validators.Optional(), validators.NumberRange(0.5, 2.0)])
