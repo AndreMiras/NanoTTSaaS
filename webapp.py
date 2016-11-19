@@ -37,8 +37,10 @@ def home():
     form = NanoTtsForm(request.form)
     if request.method == 'POST' and form.validate():
         text = form.text.data
+        voice = form.voice.data
         nanotts = NanoTts()
         nanotts.noplay = True
+        nanotts.voice = voice
         f = NamedTemporaryFile(
             suffix=AUDIO_FORMAT, dir=audio_directory(), delete=False)
         f.close()
