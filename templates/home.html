@@ -73,8 +73,12 @@
         <div class="code bash hljs">
         # Using cURL and aplay<br>
         $ curl --data "text=from the terminal" https://nanottsaas.herokuapp.com/api | aplay<br><br>
-        # Passing parameters<br>
-        $ curl --data "text=depuis le terminal" --data "voice=fr-FR" https://nanottsaas.herokuapp.com/api | aplay
+
+        # Passing parameters e.g. voice<br>
+        $ curl --data "text=depuis le terminal" --data "voice=fr-FR" https://nanottsaas.herokuapp.com/api | aplay<br><br>
+
+        # Passing more parameters e.g. speed and pitch<br>
+        $ curl --data "text=from the terminal" --data "speed=0.8" --data "pitch=1.5" https://nanottsaas.herokuapp.com/api | aplay
         </div>
         <!--
         </code></pre>
