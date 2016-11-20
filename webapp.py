@@ -75,6 +75,14 @@ def api_helper():
     return data
 
 
+@app.route('/api', methods=['GET', 'POST'])
+def api():
+    data = api_helper()
+    audio_file = data['audio_file']
+    audio_filename = os.path.basename(audio_file)
+    return send_from_directory(audio_directory(), audio_filename)
+
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
     data = api_helper()
