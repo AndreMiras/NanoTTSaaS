@@ -37,16 +37,23 @@ def favicon():
             'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
-@app.route('/', methods=['GET', 'POST'])
-def home():
+def api_helper():
+    """
+    Helper function for handling request and preparing audio download.
+    1) Processes the request, extracting form data
+    2) Runs nanotts with requested parameters
+    3) Returns processed form and audio file
+    """
     text = None
     audio_file = None
+    # 1) Processes the request, extracting form data
     form = NanoTtsForm(request.form)
     if request.method == 'POST' and form.validate():
         text = form.text.data
         voice = form.voice.data
         speed = form.speed.data
         pitch = form.pitch.data
+        # 2) Runs nanotts with requested parameters
         nanotts = NanoTts()
         nanotts.noplay = True
         nanotts.voice = voice
@@ -59,11 +66,18 @@ def home():
         nanotts.output = f.name
         nanotts.run(text)
         delete_old_audio_files(audio_directory())
+    # 3) Returns processed form and audio file
     data = {
         "text": text,
         "audio_file": audio_file,
         "form": form,
     }
+    return data
+
+
+@app.route('/', methods=['GET', 'POST'])
+def home():
+    data = api_helper()
     return render_template('home.html', **data)
 
 
