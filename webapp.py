@@ -2,7 +2,8 @@ import os
 import random
 from datetime import datetime, timedelta
 from tempfile import NamedTemporaryFile
-from flask import Flask, request, render_template, send_from_directory
+from flask import Flask, request, render_template, send_from_directory, \
+    jsonify
 from forms import NanoTtsForm
 from libnanotts import NanoTts
 
@@ -75,10 +76,13 @@ def api_helper():
     return data
 
 
-@app.route('/api', methods=['GET', 'POST'])
+@app.route('/api', methods=['POST'])
 def api():
     data = api_helper()
+    form = data['form']
     audio_file = data['audio_file']
+    if form.errors:
+        return jsonify(**form.errors)
     audio_filename = os.path.basename(audio_file)
     return send_from_directory(audio_directory(), audio_filename)
 
