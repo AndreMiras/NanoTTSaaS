@@ -34,3 +34,22 @@ font-size: 12em;
 .fa.fa-6 {
 font-size: 20em;
 }
+
+/* Terminal */
+.panel-body.terminal {
+/*
+background: #101010;
+*/
+color: #d4d3d3;
+padding: 0;
+}
+/* overrides bootstrap pre in term */
+.terminal pre {
+border: 0;
+background-color: transparent;
+padding: 0;
+/*
+margin: 0;
+*/
+border-radius: 0;
+}
