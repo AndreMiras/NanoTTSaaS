@@ -7,6 +7,7 @@
 {% block content %}
 
 <div class="row">
+  <h2>Play for the web browser</h2>
   <div class="col-md-12">
     {% if audio_file %}
     <audio autoplay="autoplay">
@@ -53,6 +54,29 @@
       <button type="submit" class="btn btn-default"><i class="fa fa-play fa-4x"></i></button>
       </div>
     </form>
+  </div>
+  <h2>Play for the web terminal</h2>
+  <div class="col-md-12">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Terminal
+        <div class="pull-right">
+          <i class="fa fa-minus" aria-hidden="true"></i>
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="panel-body terminal">
+        <pre><code class="bash">
+# Using cURL and aplay
+$ curl --data "text=from the terminal" https://nanottsaas.herokuapp.com/api | aplay
+
+# Passing parameters
+$ curl --data "text=depuis le terminal" --data "voice=fr-FR" https://nanottsaas.herokuapp.com/api | aplay
+        </code></pre>
+      </div>
+    </div>
+
   </div>
 
 {% endblock content %}
