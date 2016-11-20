@@ -8,51 +8,51 @@
 
 <div class="row">
   <div class="col-md-12">
-  {% if audio_file %}
-  <audio autoplay="autoplay">
-   <source src="{{ url_for('static', filename=audio_file) }}" type='audio/wav'>
-   <p>Your user agent does not support the HTML5 Audio element.</p>
-  </audio>
-  {% endif %}
+    {% if audio_file %}
+    <audio autoplay="autoplay">
+     <source src="{{ url_for('static', filename=audio_file) }}" type='audio/wav'>
+     <p>Your user agent does not support the HTML5 Audio element.</p>
+    </audio>
+    {% endif %}
   </div>
 
   <div class="md-12">
-  {% from "_formhelpers_bootstrap.html" import render_field %}
-  <form method="POST" action="/">
-    <div class="row">
-      <div class="col-md-12">
-        {{ render_field(form.text) }}
-      </div>
+    {% from "_formhelpers_bootstrap.html" import render_field %}
+    <form method="POST" action="/">
+      <div class="row">
+        <div class="col-md-12">
+          {{ render_field(form.text) }}
+        </div>
 
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <a data-toggle="collapse" href="#collapse1">
-              <i class="fa fa-chevron-down" aria-hidden="true"></i> Advanced options</a>
-            </h3>
-          </div>
-          <div id="collapse1" class="panel-collapse collapse">
-            <div class="panel-body">
-              <div class="col-md-4">
-                {{ render_field(form.voice) }}
-              </div>
-              <div class="col-md-4">
-                {{ render_field(form.speed, placeholder="Between 0.2 and 5.0") }}
-              </div>
-              <div class="col-md-4">
-                {{ render_field(form.pitch, placeholder="Between 0.5 and 2.0") }}
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <a data-toggle="collapse" href="#collapse1">
+                <i class="fa fa-chevron-down" aria-hidden="true"></i> Advanced options</a>
+              </h3>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+              <div class="panel-body">
+                <div class="col-md-4">
+                  {{ render_field(form.voice) }}
+                </div>
+                <div class="col-md-4">
+                  {{ render_field(form.speed, placeholder="Between 0.2 and 5.0") }}
+                </div>
+                <div class="col-md-4">
+                  {{ render_field(form.pitch, placeholder="Between 0.5 and 2.0") }}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-    </div>
-    <div class="text-center">
-    <button type="submit" class="btn btn-default"><i class="fa fa-play fa-4x"></i></button>
-    </div>
-  </form>
+      </div>
+      <div class="text-center">
+      <button type="submit" class="btn btn-default"><i class="fa fa-play fa-4x"></i></button>
+      </div>
+    </form>
   </div>
 
 {% endblock content %}
