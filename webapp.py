@@ -3,8 +3,8 @@ import random
 from datetime import datetime, timedelta
 from tempfile import NamedTemporaryFile
 from flask import Flask, request, render_template, send_from_directory, \
-    jsonify
-from forms import NanoTtsForm
+    jsonify, url_for
+from forms import TtsApiForm
 from libnanotts import NanoTts
 
 app = Flask(__name__)
@@ -47,13 +47,15 @@ def api_helper():
     """
     text = None
     audio_file = None
+    response_type = None
     # 1) Processes the request, extracting form data
-    form = NanoTtsForm(request.form)
+    form = TtsApiForm(request.form)
     if request.method == 'POST' and form.validate():
         text = form.text.data
         voice = form.voice.data
         speed = form.speed.data
         pitch = form.pitch.data
+        response_type = form.response_type.data
         # 2) Runs nanotts with requested parameters
         nanotts = NanoTts()
         nanotts.noplay = True
@@ -69,27 +71,52 @@ def api_helper():
         delete_old_audio_files(audio_directory())
     # 3) Returns processed form and audio file
     data = {
+        "form": form,
         "text": text,
         "audio_file": audio_file,
-        "form": form,
+        "response_type": response_type,
     }
     return data
 
 
 @app.route('/api', methods=['POST'])
 def api():
+    """
+    API view, handles the form using the api_helper(),
+    then return either:
+    1) form errors as json
+    2) audio file address
+    3) audio file content
+    """
     data = api_helper()
     form = data['form']
     audio_file = data['audio_file']
+    response_type = data['response_type']
+    # 1) form errors as json
     if form.errors:
         return jsonify(**form.errors)
-    audio_filename = os.path.basename(audio_file)
-    return send_from_directory(audio_directory(), audio_filename)
+    # 2) audio file address
+    if response_type is not None and response_type == 'audio_address':
+        response_dict = {
+            "audio_file": url_for('static', filename=audio_file),
+        }
+        return jsonify(**response_dict)
+    # 3) audio file content
+    else:
+        audio_filename = os.path.basename(audio_file)
+        return send_from_directory(audio_directory(), audio_filename)
 
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    """
+    Home view, handles the form using the api_helper().
+    Changes the default form response_type value to "audio_address"
+    rather than "audio_content".
+    """
     data = api_helper()
+    form = data['form']
+    form.response_type.data = 'audio_address'
     return render_template('home.html', **data)
 
 
