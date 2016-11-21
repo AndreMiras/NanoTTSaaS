@@ -1,4 +1,5 @@
 *.swp
 *.pyc
 venv/
+.tox/
 static/audio/*.wav
