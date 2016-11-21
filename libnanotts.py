@@ -2,7 +2,7 @@ from subprocess import call
 
 
 class NanoTts(object):
-    VOICES = [ "en-GB", "en-US", "de-DE", "es-ES", "fr-FR", "it-IT" ]
+    VOICES = ["en-GB", "en-US", "de-DE", "es-ES", "fr-FR", "it-IT"]
 
     def __init__(self):
         self.voice = "en-GB"
