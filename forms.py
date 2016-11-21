@@ -1,4 +1,5 @@
-from wtforms import Form, validators, TextAreaField, SelectField, FloatField
+from wtforms import Form, validators, TextAreaField, SelectField
+from wtforms.fields.html5 import DecimalField
 from libnanotts import NanoTts
 
 
@@ -14,7 +15,7 @@ class NanoTtsForm(Form):
                 validators=[validators.Optional()],
                 choices=VOICE_CHOICES,
                 default='en-GB')
-    speed = FloatField(validators=[
+    speed = DecimalField(validators=[
                 validators.Optional(), validators.NumberRange(0.2, 5.0)])
-    pitch = FloatField(validators=[
+    pitch = DecimalField(validators=[
                 validators.Optional(), validators.NumberRange(0.5, 2.0)])
