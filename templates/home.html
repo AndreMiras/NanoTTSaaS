@@ -8,21 +8,14 @@
 
 <div class="row">
   <h2>Play for the web browser</h2>
-  <div class="col-md-12">
-    {% if audio_file %}
-    <audio autoplay="autoplay">
-     <source src="{{ url_for('static', filename=audio_file) }}" type='audio/wav'>
-     <p>Your user agent does not support the HTML5 Audio element.</p>
-    </audio>
-    {% endif %}
-  </div>
 
   <div class="md-12">
     {% from "_formhelpers_bootstrap.html" import render_field %}
-    <form method="POST" action="/" autocomplete="off">
+    <form id="ttsForm" method="POST" action="/" autocomplete="off">
+      {{ form.hidden_tag() }}
       <div class="row">
         <div class="col-md-12">
-          {{ render_field(form.text) }}
+          {{ render_field(form.text, label_visible=False) }}
         </div>
 
         <div class="col-md-12">
@@ -87,5 +80,21 @@
     </div>
 
   </div>
-
 {% endblock content %}
+{% block extrajs %}
+<script>
+  var api_url = "{{ url_for('api') }}";
+  bind_tts_form(api_url);
+
+  // SoundManager2 initialization
+  soundManager.setup({
+    url: 'https://cdnjs.cloudflare.com/ajax/libs/soundmanager2/2.97a.20150601/swf/',
+    // optional: ignore Flash where possible, use 100% HTML5 mode
+    preferFlash: false,
+    onready: function() {
+      // Ready to use; soundManager.createSound() etc. can now be called.
+      // play_sound();
+    }
+  });
+</script>
+{% endblock extrajs %}
