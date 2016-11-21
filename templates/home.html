@@ -19,7 +19,7 @@
 
   <div class="md-12">
     {% from "_formhelpers_bootstrap.html" import render_field %}
-    <form method="POST" action="/">
+    <form method="POST" action="/" autocomplete="off">
       <div class="row">
         <div class="col-md-12">
           {{ render_field(form.text) }}
