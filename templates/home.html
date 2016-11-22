@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 
 {% block wraptitle %}
-<hr>
 {% endblock wraptitle %}
 
 {% block content %}
 
 <div class="row">
-  <h2>Play for the web browser</h2>
 
-  <div class="md-12">
+  <div class="col-md-12">
+    <h2>Play from the browser</h2>
     {% from "_formhelpers_bootstrap.html" import render_field %}
     <form id="ttsForm" method="POST" action="/" autocomplete="off">
       {{ form.hidden_tag() }}
@@ -28,29 +27,31 @@
             </div>
             <div id="collapse1" class="panel-collapse collapse">
               <div class="panel-body">
-                <div class="col-md-4">
-                  {{ render_field(form.voice) }}
-                </div>
-                <div class="col-md-4">
-                  {{ render_field(form.speed, placeholder="Between 0.2 and 5.0") }}
-                </div>
-                <div class="col-md-4">
-                  {{ render_field(form.pitch, placeholder="Between 0.5 and 2.0") }}
-                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    {{ render_field(form.voice) }}
+                  </div>
+                  <div class="col-md-4">
+                    {{ render_field(form.speed, placeholder="Between 0.2 and 5.0") }}
+                  </div>
+                  <div class="col-md-4">
+                    {{ render_field(form.pitch, placeholder="Between 0.5 and 2.0") }}
+                  </div>
+                </div> <!-- row -->
               </div>
             </div>
           </div>
-        </div>
+        </div> <!-- col-md-12 -->
 
       </div>
       <div class="text-center">
-      <button type="submit" class="btn btn-default"><i class="fa fa-play fa-4x"></i></button>
+        <button type="submit" class="btn btn-default"><i class="fa fa-play fa-4x"></i></button>
       </div>
     </form>
-  </div>
-  <h2>Play for the web terminal</h2>
-  <div class="col-md-12">
+  </div> <!-- col-md-12 -->
 
+  <div class="col-md-12">
+    <h2>Play from the terminal</h2>
     <div class="panel panel-default">
       <div class="panel-heading">
         Terminal
@@ -58,11 +59,8 @@
           <i class="fa fa-minus" aria-hidden="true"></i>
           <i class="fa fa-times" aria-hidden="true"></i>
         </div>
-      </div>
+      </div> <!-- panel-heading -->
       <div class="panel-body terminal">
-        <!--
-        <pre><code class="bash">
-        -->
         <div class="code bash hljs">
         # Using cURL and aplay<br>
         $ curl --data "text=from the terminal" https://nanottsaas.herokuapp.com/api | aplay<br><br>
@@ -73,13 +71,11 @@
         # Passing more parameters e.g. speed and pitch<br>
         $ curl --data "text=from the terminal" --data "speed=0.8" --data "pitch=1.5" https://nanottsaas.herokuapp.com/api | aplay
         </div>
-        <!--
-        </code></pre>
-        -->
-      </div>
-    </div>
+      </div> <!-- panel-body -->
+    </div> <!-- panel -->
+  </div> <!-- col-md-12 -->
 
-  </div>
+</div> <!-- row -->
 {% endblock content %}
 {% block extrajs %}
 <script>
