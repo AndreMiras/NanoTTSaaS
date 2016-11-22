@@ -7,6 +7,9 @@ function bind_tts_form(api_url)
   var form_id = "#ttsForm";
   // this is the id of the form
   $(form_id).submit(function(e) {
+    // plays a short silent sound just after a gesture
+    // to work around Android protection
+    play_empty();
     $.ajax({
       type: "POST",
       url: api_url,
@@ -30,4 +33,14 @@ function play_sound(file_url)
     url: file_url
   });
   mySoundObject.play();
+}
+
+/**
+ * Plays a short silent sound to Work arounds Android protection
+ * http://stackoverflow.com/a/32571967/185510
+ */
+function play_empty()
+{
+  var file_url = "/static/empty.wav";
+  play_sound(file_url);
 }
