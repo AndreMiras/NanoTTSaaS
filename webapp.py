@@ -38,7 +38,7 @@ def favicon():
             'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
-def api_helper():
+def api_helper(csrf_enabled=True):
     """
     Helper function for handling request and preparing audio download.
     1) Processes the request, extracting form data
@@ -49,7 +49,7 @@ def api_helper():
     audio_file = None
     response_type = None
     # 1) Processes the request, extracting form data
-    form = TtsApiForm(request.form)
+    form = TtsApiForm(request.form, csrf_enabled=csrf_enabled)
     if request.method == 'POST' and form.validate():
         text = form.text.data
         voice = form.voice.data
@@ -88,7 +88,8 @@ def api():
     2) audio file address
     3) audio file content
     """
-    data = api_helper()
+    csrf_enabled = False
+    data = api_helper(csrf_enabled)
     form = data['form']
     audio_file = data['audio_file']
     response_type = data['response_type']
