@@ -1,6 +1,7 @@
 import json
 import webapp
 import unittest
+from tidylib import tidy_document
 
 
 class WebappTestCase(unittest.TestCase):
@@ -44,6 +45,19 @@ class WebappTestCase(unittest.TestCase):
         json_response = json.loads(response.get_data(as_text=True))
         # they audio_file key, contains the file address
         self.assertTrue('audio_file' in json_response)
+
+    def test_home_html(self):
+        """
+        HTML validation of the home page.
+        """
+        response = self.client.get('/')
+        options = {
+            # allows Font Awesome empty <i> elements
+            'drop-empty-elements': 0,
+        }
+        _, errors = tidy_document(response.data, options)
+        errors_list = errors.split("\n")
+        self.assertEqual(errors_list, [''])
 
 
 if __name__ == '__main__':
